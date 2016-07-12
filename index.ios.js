@@ -22,6 +22,8 @@ class magnet_test extends Component {
     super(props);
     this.state = {x: 0, y: 0, z: 0};
 
+    var app = this;
+
     Magnetometer.setMagnetometerUpdateInterval(0.1); // in seconds
     DeviceEventEmitter.addListener('MagnetometerData', function (data) {
     /**
@@ -29,14 +31,14 @@ class magnet_test extends Component {
     * data.magneticField.y
     * data.magneticField.z
     **/
-    this.setState ({
-      x: data.magneticField.x, 
-      y: data.magneticField.y,
-      z: data.magneticField.z
-    })
+      app.setState ({
+        x: data.magneticField.x, 
+        y: data.magneticField.y,
+        z: data.magneticField.z
+      })
     });
     Magnetometer.startMagnetometerUpdates(); // you'll start getting AccelerationData events above
-    Magnetometer.stopMagnetometerUpdates();
+    //Magnetometer.stopMagnetometerUpdates();
 
   }
   render() {
@@ -49,8 +51,7 @@ class magnet_test extends Component {
           To get started, edit index.ios.js
         </Text>
         <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
+          {this.state.x},{this.state.y},{this.state.z}
         </Text>
       </View>
     );
